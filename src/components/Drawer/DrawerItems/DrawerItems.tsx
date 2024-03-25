@@ -12,10 +12,16 @@ const Menu = [
   {
     page: "Dashboard",
     Icon: () => <BarChartIcon />,
+    path: "/",
   },
 ];
 
 const DrawerItems = () => {
+  const navigate = (path: string) => {
+    return () => {
+      window.location.replace(path);
+    };
+  };
   return (
     <div>
       <Toolbar sx={{ p: 2, justifyContent: "center" }}>
@@ -25,7 +31,7 @@ const DrawerItems = () => {
       <List>
         {Menu.map((item) => (
           <ListItem key={item.page} disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={navigate(item.path)}>
               <ListItemIcon>
                 <item.Icon />
               </ListItemIcon>

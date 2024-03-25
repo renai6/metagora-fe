@@ -1,4 +1,4 @@
-type Portfolio = {
+export type Portfolio = {
   stocks: Stock[];
   bonds: Bond[];
   dividendIncome: DividendIncome;
@@ -9,7 +9,7 @@ type Portfolio = {
   std: number;
 };
 
-type Stock = {
+export type Stock = {
   symbol: string;
   name: string;
   quantity: number;
@@ -19,7 +19,7 @@ type Stock = {
   profitLoss: number;
 };
 
-type Bond = {
+export type Bond = {
   name: string;
   quantity: number;
   faceValue: number;
@@ -29,7 +29,7 @@ type Bond = {
   profitLoss: number;
 };
 
-type DividendIncome = {
+export type DividendIncome = {
   annualDividendYield: number;
   annualDividendIncome: number;
 };

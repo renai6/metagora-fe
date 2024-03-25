@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useMemo } from "react";
+import { Stock } from "../types";
 
 const usePortfolio = (name: string | null) => {
   const getPortfolio = async () => {
@@ -10,12 +11,13 @@ const usePortfolio = (name: string | null) => {
     return res.data;
   };
 
-  const { data } = useQuery({
+  const { data, isPending } = useQuery({
     queryKey: ["portfolio"],
     queryFn: getPortfolio,
   });
 
   const totalStockValue = useMemo(() => {
+    if (isPending) return 0;
     const total = data?.portfolio?.stocks.reduce(
       (accumulator: number, currentValue: Stock) =>
         currentValue.marketValue + accumulator,
@@ -23,9 +25,10 @@ const usePortfolio = (name: string | null) => {
     );
 
     return total;
-  }, [data]);
+  }, [data, isPending]);
 
   const totalBondValue = useMemo(() => {
+    if (isPending) return 0;
     const total = data?.portfolio?.bonds.reduce(
       (accumulator: number, currentValue: Stock) =>
         currentValue.marketValue + accumulator,
@@ -33,14 +36,17 @@ const usePortfolio = (name: string | null) => {
     );
 
     return total;
-  }, [data]);
+  }, [data, isPending]);
 
   return {
-    portfolio: data?.portfolio ?? { stocks: [] },
+    isPending,
+    portfolio: isPending ? [] : data.portfolio,
     totalStockValue,
     totalBondValue,
-    totalPortfolioValue: data?.portfolio.totalPortfolioValue,
-    dividendIncome: data?.portfolio.dividend_income.annualDividend_income,
+    totalPortfolioValue: isPending ? 0 : data.portfolio.totalPortfolioValue,
+    dividendIncome: isPending
+      ? 0
+      : data.portfolio.dividend_income.annualDividend_income,
   };
 };
 

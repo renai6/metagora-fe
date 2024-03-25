@@ -1,21 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { useMemo } from "react";
+import { Portfolio } from "../types";
 
-const usePortfolios = () => {
-  // Queries
-  const getPortfolios = async () => {
-    const res = await axios.get(`${import.meta.env.VITE_API_URL}/portfolios/`);
-    return res.data;
-  };
-
-  const { data, isPending } = useQuery({
-    queryKey: ["portfolios"],
-    queryFn: getPortfolios,
-  });
-
+const usePortfolios = (portfolios: Portfolio[]) => {
   const computedBySharpeRatio = useMemo(() => {
-    return data?.portfolios?.map((portfolio: Portfolio) => {
+    return portfolios?.map((portfolio: Portfolio) => {
       // Higher value is good
       const sharpeRatioValue =
         (portfolio.returnRate - portfolio.riskRate) / portfolio.std;
@@ -26,11 +14,10 @@ const usePortfolios = () => {
         riskToRewardPercent: sharpeRatioValue * 100,
       };
     });
-  }, [data]);
+  }, [portfolios]);
 
   return {
-    isPending,
-    portfolios: computedBySharpeRatio ?? [],
+    computedBySharpeRatio,
   };
 };
 

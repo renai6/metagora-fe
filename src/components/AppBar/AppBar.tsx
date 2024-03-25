@@ -13,7 +13,7 @@ import { GlobalContext } from "../../contexts/GlobalContext";
 const drawerWidth = 240;
 
 const AppBarComponent = () => {
-  const { theme, toggleMode } = useContext(GlobalContext);
+  const { theme, toggleMode, handleDrawerToggle } = useContext(GlobalContext);
 
   return (
     <AppBar
@@ -29,7 +29,7 @@ const AppBarComponent = () => {
         <IconButton
           color="inherit"
           edge="start"
-          onClick={toggleMode}
+          onClick={handleDrawerToggle}
           sx={{ mr: 2, display: { sm: "none" } }}
         >
           <MenuIcon />

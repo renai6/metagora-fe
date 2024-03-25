@@ -3,6 +3,7 @@ import { Box, Paper, Typography } from "@mui/material";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import { PortfolioContext } from "../../contexts/PortfolioContext";
 import { GlobalContext } from "../../contexts/GlobalContext";
+import { Portfolio } from "../../types";
 
 const PortfolioDataGraph = () => {
   const { portfolios } = useContext(PortfolioContext);

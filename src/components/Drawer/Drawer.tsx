@@ -1,12 +1,13 @@
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import { DrawerItems } from "./DrawerItems";
-import useDrawer from "../../hooks/useDrawer";
+import { useContext } from "react";
+import { GlobalContext } from "../../contexts/GlobalContext";
 
 const drawerWidth = 240;
 const DrawerComponent = () => {
   const { mobileOpen, handleDrawerTransitionEnd, handleDrawerClose } =
-    useDrawer();
+    useContext(GlobalContext);
 
   return (
     <Box

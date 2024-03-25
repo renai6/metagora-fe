@@ -10,9 +10,12 @@ import {
   YAxis,
 } from "recharts";
 import { PortfolioContext } from "../../contexts/PortfolioContext";
+import usePortfolios from "../../hooks/usePortfolios";
 
 const RiskToRewardGraph = () => {
   const { portfolios } = useContext(PortfolioContext);
+
+  const { computedBySharpeRatio } = usePortfolios(portfolios);
   return (
     <Box component="section">
       <Paper elevation={2} sx={{ p: 3, borderRadius: 8 }}>
@@ -21,7 +24,7 @@ const RiskToRewardGraph = () => {
           Risk to reward value per portolio
         </Typography>
         <ResponsiveContainer width="100%" height={200}>
-          <LineChart width={500} height={200} data={portfolios}>
+          <LineChart width={500} height={200} data={computedBySharpeRatio}>
             <Tooltip />
             <YAxis type="number" padding={{ top: 30 }} />
             <XAxis dataKey="name" padding={{ left: 30, right: 30 }} />

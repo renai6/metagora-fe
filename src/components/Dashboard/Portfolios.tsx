@@ -11,6 +11,7 @@ import {
 import { formatNumberMoney } from "../../utils/format";
 import { PortfolioContext } from "../../contexts/PortfolioContext";
 import usePageNavigate from "../../hooks/usePageNavigate";
+import { Portfolio } from "../../types";
 
 const Portfolios = () => {
   const navigate = usePageNavigate();
